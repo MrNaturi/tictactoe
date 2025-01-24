@@ -1,4 +1,5 @@
-const gameOver = document.getElementById("gameOverDialog")
+const gameOver = document.getElementById("gameOverDialog");
+
 const GameBoard = (function () {
   let gameBoard = ['', '', '', '', '', '', '', '', ''];
 
@@ -24,9 +25,12 @@ const GameBoard = (function () {
         const winner = gameController();
         if (winner) {
           updateUI();
-gameOver.innerHTML = `<h1>${winner === "draw" ? "It's a draw!" : `${name} wins!`}</h1>`;
-          gameOver.showModal()
-
+          gameOver.innerHTML = `<h1>${winner === "draw" ? "It's a draw!" : `${name} wins!`}</h1><button id="startOverButton">Start Over</button>`;
+          gameOver.showModal();
+          document.getElementById('startOverButton').onclick = () => {
+            form.style.display="block";
+            gameOver.close();
+          };
           console.log(winner === "draw" ? "It's a draw!" : `${name} wins!`);
           disableButtons();
           return;
@@ -35,7 +39,7 @@ gameOver.innerHTML = `<h1>${winner === "draw" ? "It's a draw!" : `${name} wins!`
         return true;
       } else {
         console.log("Invalid Move");
-        return false; 
+        return false;
       }
     };
 
@@ -98,10 +102,9 @@ function startGame(p1Name, p2Name) {
   });
 }
 
-
 const form = document.getElementById('playerForm');
 form.onsubmit = (e) => {
-  e.preventDefault(); // Prevent page reload
+  e.preventDefault();
   const p1Name = document.getElementById('p1Name').value || 'Player 1';
   const p2Name = document.getElementById('p2Name').value || 'Player 2';
   form.style.display = 'none'; 
