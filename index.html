@@ -3,12 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Tic-Tac-Toe</title>
 </head>
 <body>
-    
-<div id="board"></div>
+    <form id="playerForm">
+        <label for="p1Name">Player 1's name</label>
+        <input id="p1Name" type="text" placeholder="Player 1" />
+        <label for="p2Name">Player 2's name</label>
+        <input id="p2Name" type="text" placeholder="Player 2"  />
+        <button type="submit">Start</button>
+    </form>
 
-    <script src="script.js" ></script>
+    <dialog id="gameOverDialog"></dialog>
+    <div id="board"></div>
+    <script src="script.js"></script>
 </body>
 </html>
