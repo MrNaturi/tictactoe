@@ -1,6 +1,18 @@
+const  GameBoard = (function(){
 let gameBoard = ['','','','','','','','',''];
 
 function createPlayer(name, piece){
+  function gameController() {
+    const options = [[0,1,2], [3,4,5], [6,7,8], [0,3,6], [1,4,7], [2,5,8], [0,4,8], [2,4,6]]
+    for (let option of options) {
+      const [a,b,c] =  option;
+      if (gameBoard[a] && gameBoard[a] === gameBoard[b] && gameBoard[a] === gameBoard[c]) {
+        return gameBoard[a]
+      }
+    }
+    return gameBoard.includes("") ? null : "draw"; 
+  }
+
   const move = (index) => {
     if(gameBoard[index] === ''){
         gameBoard[index] = piece
@@ -18,18 +30,26 @@ function createPlayer(name, piece){
   }}
     return {move}
 }
-function gameController() {
-  const options = [[0,1,2], [3,4,5], [6,7,8], [0,3,6], [1,4,7], [2,5,8], [0,4,8], [2,4,6]]
-  for (let option of options) {
-    const [a,b,c] =  option;
-    if (gameBoard[a] && gameBoard[a] === gameBoard[b] && gameBoard[a] === gameBoard[c]) {
-      return gameBoard[a]
-    }
-  }
-  return gameBoard.includes("") ? null : "draw"; 
-}
-const player1 = createPlayer("player1", "x")
-const player2 = createPlayer("player2", "o")
+return{createPlayer, gameBoard}
+})()
+
+const board = document.getElementById("board")
+GameBoard.gameBoard.forEach((element, index) => {
+  const cell = document.createElement("div")
+  cell.className = "cell"
+  const button = document.createElement("button")
+  button.className = "selectors"
+   button.innerText = `${element}`
+   button.onclick =() => {
+
+   }
+  cell.appendChild(button)
+  board.appendChild(cell)
+  
+});
+
+const player1 = GameBoard.createPlayer("player1", "x")
+const player2 = GameBoard.createPlayer("player2", "o")
 player1.move(1)
 player2.move(2)
 player1.move(3)
@@ -39,4 +59,4 @@ player2.move(7)
 player1.move(6)
 player2.move(0)
 player1.move(8)
-console.log(gameBoard)
+
